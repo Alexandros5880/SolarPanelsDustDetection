@@ -1,0 +1,9 @@
+namespace OpenCvShapeDetection
+{
+    [default_interface]
+    runtimeclass ShapeDetection : Windows.UI.Xaml.Controls.Page
+    {
+        ShapeDetection();
+        Int32 MyProperty;
+    }
+}
