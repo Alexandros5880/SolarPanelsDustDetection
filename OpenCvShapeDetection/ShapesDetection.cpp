@@ -8,13 +8,13 @@ MyCountours::MyCountours(
     this->hierarchy = hierarchy;
 }
 
-cv::Mat get_gray(cv::Mat *frame) {
+cv::Mat ShapeDetection::get_gray(cv::Mat *frame) {
     cv::Mat gray;
     cv::cvtColor(*frame, gray, cv::COLOR_BGR2GRAY);
     return gray;
 }
 
-cv::Mat get_countours_frame(cv::Mat *frame_gray)
+cv::Mat ShapeDetection::get_countours_frame(cv::Mat *frame_gray)
 {
     int thresh = 100;
     cv::Mat canny_output;
@@ -34,47 +34,14 @@ cv::Mat get_countours_frame(cv::Mat *frame_gray)
     return drawing_countours_image;
 }
 
-cv::Mat get_squares_with_gradient_shading(cv::Mat *gray) {
+cv::Mat ShapeDetection::get_squares_with_gradient_shading(cv::Mat *gray) {
     cv::Mat bw;
     blur(*gray, bw, cv::Size(3, 3));
     cv::Canny(*gray, bw, 80, 240, 3);
     return bw;
 }
 
-void createTestImage() {
-    cv::Mat image = cv::Mat::zeros(300, 600, CV_8UC3);
-    circle(image, cv::Point(250, 150), 100, cv::Scalar(0, 255, 128), -100);
-    circle(image, cv::Point(350, 150), 100, cv::Scalar(255, 255, 255), -100);
-    imshow("Display Window", image);
-    cv::waitKey(0);
-}
-
-void shape_detection_example() {
-    //cv::Mat frame = cv::imread("polygon.png");
-    cv::Mat frame;
-    cv::Mat gray;
-    cv::Mat bw;
-    cv::Mat drawing_countours_frame;
-
-    cv::VideoCapture capture(0);
-    int q;
-
-    while (cv::waitKey(30) != 'q')
-    {
-        capture >> frame;
-
-        // Convert to grayscale
-        gray = get_gray(&frame);
-
-        // Use Canny instead of threshold to catch squares with gradient shading
-        bw = get_squares_with_gradient_shading(&gray);
-
-        // Get Countours
-        drawing_countours_frame = get_countours_frame(&gray);
-
-        cv::imshow("bw", bw);
-        cv::imshow("frame", frame);
-        cv::imshow("gray", gray);
-        cv::imshow("Contours", drawing_countours_frame);
-    }
+void ShapeDetection::get_squares(cv::Mat* image, cv::Mat* imageOutput) {
+    cv::Mat bw = get_squares_with_gradient_shading(image);
+    *imageOutput = get_countours_frame(image);
 }

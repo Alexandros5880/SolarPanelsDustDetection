@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ColorDetection.cpp" />
     <ClCompile Include="OpenCvShapeDetection.cpp" />
     <ClCompile Include="ShapesDetection.cpp" />
   </ItemGroup>
@@ -139,6 +140,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColorDetection.h" />
     <ClInclude Include="General.h" />
     <ClInclude Include="ShapesDetection.h" />
   </ItemGroup>
